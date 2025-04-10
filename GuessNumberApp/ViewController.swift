@@ -11,8 +11,6 @@ class ViewController: UIViewController {
     
     let titleImage = UIImageView()
     let getStartedButton = UIButton()
-
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -36,7 +34,6 @@ class ViewController: UIViewController {
         getStartedButton.setTitleColor(.black, for: .normal)
         getStartedButton.addTarget(self, action: #selector(getStartedFunc), for: .touchUpInside)
         view.addSubview(getStartedButton)
-        
         
     }
     

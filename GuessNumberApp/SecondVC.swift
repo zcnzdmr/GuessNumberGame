@@ -39,7 +39,6 @@ class secondViewController : UIViewController {
         guessTextField.text = "Enter your number"
         view.addSubview(guessTextField)
         
-        
         guessButton.frame = CGRect(x: 80, y: 400, width: screenWidth-160, height: 60)
         guessButton.setTitle("GUESS", for: .normal)
         guessButton.setTitleColor(.white, for: .normal)
