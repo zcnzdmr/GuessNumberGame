@@ -70,12 +70,12 @@ class secondViewController : UIViewController {
                     print("try higher number")
                 }else if guessedNumber == secretNumber {
                     print("congrats")
-                }else {
-                    print("wrong entry")
                 }
+            }else {
+                print("wrong entry")
             }
+        }else {
+            print("wrong entry not number")
         }
-        
     }
-    
 }
