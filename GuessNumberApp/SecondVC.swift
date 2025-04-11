@@ -11,8 +11,11 @@ class secondViewController : UIViewController {
     
     let guessTextField = UITextField()
     let guessButton = UIButton()
-    let resultLabel = UILabel()
+    let guessCountLabel = UILabel()
+    let guideLabel = UILabel()
+    let backroundImage = UIImageView()
     let secretNumber = Int.random(in: 1...100)
+    let numberOfGuessed = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,57 +28,71 @@ class secondViewController : UIViewController {
         
         let screenWidth = view.frame.width
         
-        resultLabel.frame = CGRect(x: (screenWidth - 120) / 2 , y: 120, width: 120, height: 120)
-        resultLabel.font = UIFont.boldSystemFont(ofSize: 50)
-        resultLabel.layer.borderColor = UIColor.red.cgColor
-        resultLabel.layer.borderWidth = 3
-        resultLabel.layer.cornerRadius = 60
-        resultLabel.textAlignment = .center
-        resultLabel.text = "0"
-        view.addSubview(resultLabel)
+        backroundImage.frame = view.bounds
+        backroundImage.image = UIImage(named: "bb")
+        view.addSubview(backroundImage)
+        
+        guessCountLabel.frame = CGRect(x: (screenWidth - 120) / 2 , y: 120, width: 120, height: 120)
+        guessCountLabel.font = UIFont.boldSystemFont(ofSize: 50)
+//        resultLabel.layer.borderColor = UIColor.red.cgColor
+//        resultLabel.layer.borderWidth = 3
+        guessCountLabel.backgroundColor = .white
+        guessCountLabel.layer.cornerRadius = 60
+        guessCountLabel.textAlignment = .center
+        guessCountLabel.clipsToBounds = true
+        guessCountLabel.text = "3"
+        view.addSubview(guessCountLabel)
         
         
         guessTextField.frame = CGRect(x: 20, y: 280, width: screenWidth - 40, height: 50)
-        guessTextField.layer.borderWidth = 1
+        guessTextField.layer.borderWidth = 0
         guessTextField.layer.cornerRadius = 6
+        guessTextField.backgroundColor = .white
         guessTextField.textAlignment = .center
         guessTextField.placeholder = "Enter a number between 1-100"
         view.addSubview(guessTextField)
         
-        guessButton.frame = CGRect(x: 100, y: 400, width: screenWidth-200, height: 60)
+        guessButton.frame = CGRect(x: 130, y: 730, width: screenWidth-260, height: 60)
         guessButton.setTitle("GUESS", for: .normal)
         guessButton.setTitleColor(.white, for: .normal)
-        guessButton.backgroundColor = .systemBlue
+        guessButton.backgroundColor = .black
         guessButton.layer.cornerRadius = 6
         //        guessButton.layer.borderColor = .white
         guessButton.addTarget(self, action: #selector(guessFunc), for: .touchUpInside)
         view.addSubview(guessButton)
         
+        guideLabel.frame = CGRect(x: 20, y: 380, width: screenWidth - 40, height: 50)
+        guideLabel.backgroundColor = .white
+        guideLabel.clipsToBounds = true
+        guideLabel.layer.cornerRadius = 6
+        guideLabel.textAlignment = .center
+        guideLabel.font = UIFont.italicSystemFont(ofSize: 22)
+        guideLabel.adjustsFontSizeToFitWidth = true  // Usable method to fit the
+        guideLabel.text = "Try a number now"
+        view.addSubview(guideLabel)
+        
     }
     
     @objc func guessFunc() {
         
-        guard let textGuess = guessTextField.text else {
-            print("No entry")
-            return
-        }
-        if let guessedNumber = Int(textGuess) {
-            
-            print("\(secretNumber)")
-            
-            if 1 < guessedNumber && guessedNumber < 100 {
-                if guessedNumber > secretNumber {
-                    print("try lower number")
-                }else if guessedNumber < secretNumber {
-                    print("try higher number")
-                }else if guessedNumber == secretNumber {
-                    print("congrats")
+        if let textGuess = guessTextField.text , !textGuess.isEmpty {
+            if let guessedNumber = Int(textGuess) {
+                if 1 < guessedNumber && guessedNumber < 100 {
+                    if guessedNumber > secretNumber {
+                        print("try lower number")
+                    }else if guessedNumber < secretNumber {
+                        print("try higher number")
+                    }else if guessedNumber == secretNumber {
+                        print("congrats")
+                    }
+                }else {
+                    print("wrong entry")
                 }
             }else {
-                print("wrong entry")
+                guideLabel.text = "  Please enter a number between 1-100  "
             }
         }else {
-            print("wrong entry not number")
+            guideLabel.text = "No Entry"
         }
     }
 }

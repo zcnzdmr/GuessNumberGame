@@ -39,6 +39,7 @@ class ViewController: UIViewController {
     
     @objc func getStartedFunc() {
         self.navigationController?.pushViewController(secondViewController(), animated: true)
+        navigationController?.navigationItem.hidesBackButton = true
     }
 }
 
