@@ -15,7 +15,7 @@ class secondViewController : UIViewController {
     let guideLabel = UILabel()
     let backroundImage = UIImageView()
     let secretNumber = Int.random(in: 1...100)
-    let numberOfGuessed = 3
+    var numberOfGuessed = 3
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +29,13 @@ class secondViewController : UIViewController {
         let screenWidth = view.frame.width
         
         backroundImage.frame = view.bounds
-        backroundImage.image = UIImage(named: "bb")
+        backroundImage.image = UIImage(named: "ff")
         view.addSubview(backroundImage)
         
         guessCountLabel.frame = CGRect(x: (screenWidth - 120) / 2 , y: 120, width: 120, height: 120)
         guessCountLabel.font = UIFont.boldSystemFont(ofSize: 50)
 //        resultLabel.layer.borderColor = UIColor.red.cgColor
-//        resultLabel.layer.borderWidth = 3
+//        guessCountLabel.layer.borderWidth = 0.5
         guessCountLabel.backgroundColor = .white
         guessCountLabel.layer.cornerRadius = 60
         guessCountLabel.textAlignment = .center
@@ -45,7 +45,7 @@ class secondViewController : UIViewController {
         
         
         guessTextField.frame = CGRect(x: 20, y: 280, width: screenWidth - 40, height: 50)
-        guessTextField.layer.borderWidth = 0
+        guessTextField.layer.borderWidth = 0.5
         guessTextField.layer.cornerRadius = 6
         guessTextField.backgroundColor = .white
         guessTextField.textAlignment = .center
@@ -61,9 +61,10 @@ class secondViewController : UIViewController {
         guessButton.addTarget(self, action: #selector(guessFunc), for: .touchUpInside)
         view.addSubview(guessButton)
         
-        guideLabel.frame = CGRect(x: 20, y: 380, width: screenWidth - 40, height: 50)
+        guideLabel.frame = CGRect(x: 20, y: 360, width: screenWidth - 40, height: 50)
         guideLabel.backgroundColor = .white
         guideLabel.clipsToBounds = true
+        guideLabel.layer.borderWidth = 0.5
         guideLabel.layer.cornerRadius = 6
         guideLabel.textAlignment = .center
         guideLabel.font = UIFont.italicSystemFont(ofSize: 22)
@@ -74,16 +75,19 @@ class secondViewController : UIViewController {
     }
     
     @objc func guessFunc() {
+        print("\(secretNumber)")
+        self.numberOfGuessed -= 1
+        guessCountLabel.text = String(numberOfGuessed)
         
         if let textGuess = guessTextField.text , !textGuess.isEmpty {
             if let guessedNumber = Int(textGuess) {
                 if 1 < guessedNumber && guessedNumber < 100 {
                     if guessedNumber > secretNumber {
-                        print("try lower number")
+                        guideLabel.text = "Try lower number :)"
                     }else if guessedNumber < secretNumber {
-                        print("try higher number")
+                        guideLabel.text = "Try higher number :)"
                     }else if guessedNumber == secretNumber {
-                        print("congrats")
+                        guideLabel.text = "Congrulationssss"
                     }
                 }else {
                     print("wrong entry")

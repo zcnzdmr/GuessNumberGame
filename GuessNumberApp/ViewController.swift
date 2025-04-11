@@ -10,7 +10,7 @@ import UIKit
 class ViewController: UIViewController {
     
     let titleImage = UIImageView()
-    let getStartedButton = UIButton()
+    let labelWelcome = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,26 +20,46 @@ class ViewController: UIViewController {
     
     private func setUpUIs() {
         
-        let screenWidth = view.frame.width
-        
-        titleImage.frame = CGRect(x: 10, y: 100, width: screenWidth-20 , height: 150)
-        titleImage.image = UIImage(named: "aa")
-        //        titleImage.layer.cornerRadius = 5
-        //        titleImage.layer.borderWidth = 1
-        titleImage.layer.masksToBounds = true
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(getStartedFunc))
+        view.addGestureRecognizer(tapGesture)
+
+//        titleImage.frame = view.bounds
+        titleImage.image = UIImage(named: "ff")
+//        titleImage.layer.masksToBounds = true
         view.addSubview(titleImage)
         
-        getStartedButton.frame = CGRect(x: 80, y: 400, width: screenWidth-160, height: 60)
-        getStartedButton.setTitle("Get Started", for: .normal)
-        getStartedButton.setTitleColor(.black, for: .normal)
-        getStartedButton.addTarget(self, action: #selector(getStartedFunc), for: .touchUpInside)
-        view.addSubview(getStartedButton)
         
+        labelWelcome.text = "WELCOME"
+        labelWelcome.textColor = .black
+        labelWelcome.font = UIFont.boldSystemFont(ofSize: 50)
+        view.addSubview(labelWelcome)
+        
+        
+        self.labelWelcome.translatesAutoresizingMaskIntoConstraints = false
+        self.titleImage.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            titleImage.topAnchor.constraint(equalTo: view.topAnchor),
+            titleImage.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            titleImage.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            titleImage.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+        ])
+        
+        
+        NSLayoutConstraint.activate([
+            labelWelcome.topAnchor.constraint(equalTo: view.topAnchor, constant: 180),
+            labelWelcome.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+        ])
+//
     }
+    
     
     @objc func getStartedFunc() {
         self.navigationController?.pushViewController(secondViewController(), animated: true)
-        navigationController?.navigationItem.hidesBackButton = true
+        self.navigationItem.hidesBackButton = true
     }
+    
+    
+    
 }
 
