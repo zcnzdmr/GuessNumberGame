@@ -21,8 +21,15 @@ class secondViewController : UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         setUpSecondVCUIs()
-        
     }
+    
+//    override func viewWillAppear(_ animated: Bool) {
+//        super.viewWillAppear(animated)
+//        let backButton = UIBarButtonItem()
+//        backButton.title = ""
+//        backButton.tintColor = .black
+//        self.navigationItem.leftBarButtonItem = backButton
+//    }
     
     private func setUpSecondVCUIs() {
         
@@ -72,6 +79,11 @@ class secondViewController : UIViewController {
         guideLabel.text = "Try a number now"
         view.addSubview(guideLabel)
         
+        
+
+        let backButton = UIBarButtonItem(title: "<", style: UIBarButtonItem.Style.done, target: self, action: #selector(backButtonFunc))
+        backButton.tintColor = .black
+        self.navigationItem.leftBarButtonItem = backButton
     }
     
     @objc func guessFunc() {
@@ -121,5 +133,9 @@ class secondViewController : UIViewController {
         alertCont.addAction(alertAction)
         
         present(alertCont,animated: true)
+    }
+    
+    @objc func backButtonFunc() {
+        self.navigationController?.setViewControllers([ViewController()], animated: true)
     }
 }
