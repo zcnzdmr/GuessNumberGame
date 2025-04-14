@@ -76,12 +76,17 @@ class secondViewController : UIViewController {
     
     @objc func guessFunc() {
         print("\(secretNumber)")
-        self.numberOfGuessed -= 1
-        guessCountLabel.text = String(numberOfGuessed)
+        
         
         if let textGuess = guessTextField.text , !textGuess.isEmpty {
             if let guessedNumber = Int(textGuess) {
-                if 1 < guessedNumber && guessedNumber < 100 {
+  
+                if 1 <= guessedNumber && guessedNumber <= 100 {
+                    self.numberOfGuessed -= 1
+                    guessCountLabel.text = String(numberOfGuessed)
+                    if numberOfGuessed == 0 {
+                        alertFunc(message: "Your rights depleted", title: "Oopps")
+                    }
                     if guessedNumber > secretNumber {
                         guideLabel.text = "Try lower number :)"
                     }else if guessedNumber < secretNumber {
@@ -90,13 +95,31 @@ class secondViewController : UIViewController {
                         guideLabel.text = "Congrulationssss"
                     }
                 }else {
-                    print("wrong entry")
+                    guideLabel.text = " Please enter a number between 1-100 "
                 }
             }else {
-                guideLabel.text = "  Please enter a number between 1-100  "
+                guideLabel.text = "Wrong Entry "
             }
         }else {
             guideLabel.text = "No Entry"
         }
+    }
+    
+    
+    func alertFunc(message : String, title: String) {
+        
+        let alertCont = UIAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        
+        let alertAction = UIAlertAction(title: "Ok", style: UIAlertAction.Style.default) { _ in
+            
+            // Bu kod parçası tüm navigation stack’i yeniden başlatır yani altta yazdığın pushViewController metodu gibi VC geçmişini korumaz.
+            self.navigationController?.setViewControllers([ViewController()], animated: true)
+            
+
+//            self.navigationController?.pushViewController(ViewController(), animated: true)
+        }
+        alertCont.addAction(alertAction)
+        
+        present(alertCont,animated: true)
     }
 }

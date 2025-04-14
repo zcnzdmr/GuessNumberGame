@@ -59,7 +59,5 @@ class ViewController: UIViewController {
         self.navigationItem.hidesBackButton = true
     }
     
-    
-    
 }
 
